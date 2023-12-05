@@ -42,7 +42,9 @@ This method is definitely a weird approach to antivirus evasion and isnt a novel
 a way of hiding the presense of a shellcode. 
 
 I used hybrid-analysis.com to analyze the effect of creating a deadlock in dllmain vs not creating a deadlock in dllmain:
+
 with deadlock: http://www.hybrid-analysis.com/sample/45098cdf0f1d2fa42da3a614423c4ee8b7aea989cd8268ea4d377d3cd69d706a
+
 without deadlock: http://www.hybrid-analysis.com/sample/2bd826a68e9803451fd6e7d702df680c58b897db8faf1b17e5237a2300208cc6
 
 
@@ -50,14 +52,16 @@ As of the time of writing, hybrid-analysis does conclude that the program is mal
 due to embedding a dll with include_bytes!() and writing it to disk which is considered suspicious.
 
 Satisfyingly, in the version with a deadlock, hybrid analysis detects much less suspicious behavior when analyzing the dll:
+
 with deadlock: http://www.hybrid-analysis.com/sample/02db9837b4ea8cfc4ab9fd2f73330e180722065b374a9113cb7f6561dd555960/656f84386d854231df0074e3
+
 without deadlock: http://www.hybrid-analysis.com/sample/2539ea2e090916f05d6f8ccb2725e1d8cc5f6d7c62123ec1355054243e48328d/656f8340f4226defe90e6a3f
 
-As you can see it detects creation of new processes and processes spawned due to injection:
+As you can see it detects creation of new processes and processes spawned due to injection:\
 ![](no_deadlock_dll.png "without deadlock")
 
 
-And with the deadlock, no process creation is detected:
+And with the deadlock, no process creation is detected:\
 ![](dll_with_deadlock.png)
 
 This failure to detect the shellcode loading can be almost definitely attributed to the thread deadlock, as after the call

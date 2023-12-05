@@ -17,7 +17,7 @@ Here is how it works:
 3. The loader then calls LoadLibrary() to load up dll.dll into memory, and this causes Dllmain to be called with the DLL_PROCESS_ATTACH parameter
 4. Dllmain prints the offset to hello() and then returns 0, causing the operating system to attempt to free dll.dll from memory.
 5. When the operating system calls FreeLibrary, Dllmain is called again this time with the DLL_PROCESS_DETACH parameter.
-6. Instead of doing what the operating system wants and calmly exiting dllmain, it purposly creates a deadlock, preventing the operating system or anyone else from freeing it. Since Dllmain is in the 
+6. Instead of doing what the operating system wants and calmly exiting dllmain, it purposly creates a deadlock, preventing the operating system or anyone else from freeing it. Since Dllmain is in the critical section, no other thread can call loadlibrary or freelibrary.
 7. Our action thread wakes up after sleeping for a while, and uses the most unsafe rust code known to man to do the following:
    * find offset to the PEB block in memory, and then get the Ldr parameter of that using inline x64 assembly
    * traverses the doubly linked list in memory at Peb->Ldr->IN_MEMORY_ORDER_LINKS until we find the base addr of dll.dll

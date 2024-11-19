@@ -1,11 +1,5 @@
 # Exploring the effects of antivirus on creating a deadlock within dllmain:
 
-A while back I started watching John Hammond videos about exploring the way malware works and the ways malware in the 
-wild use obscure features of the windows operating system to outsmart antivirus. 
-This sent me down a rabbit hole of research into obscure antivirus evasion techniques and bizarre behavior exhibited by 
-malware in the wild.
-
-
 This project is my attempt at a proof of concept for how a process could hide malicious behavior by purposely causing a 
 dll to fail to load, and then create a deadlock when the dll is attempted to be freed from memory by the operating system.
 

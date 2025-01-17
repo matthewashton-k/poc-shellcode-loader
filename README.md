@@ -1,4 +1,4 @@
-# Exploring Antivirus detection rates on creating a deadlock within dllmain:
+# Exploring Antivirus Detection Rates when Creating a Deadlock Within Dllmain:
 
 This project is my attempt at a proof of concept for how a process could hide malicious behavior by purposely causing a 
 dll to fail to load, and then create a deadlock when the dll is attempted to be freed from memory by the operating system.
